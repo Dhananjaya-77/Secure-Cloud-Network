@@ -1,0 +1,31 @@
+# ------------------------------------------------------------------------------
+# Example Configuration for Secure AWS VPC
+# Copy to terraform.tfvars and customize for your environment
+# ------------------------------------------------------------------------------
+
+aws_region   = "us-east-1"
+project_name = "enterprise-network"
+environment  = "prod"
+
+# Supernet VPC CIDR
+vpc_cidr = "10.0.0.0/16"
+
+# Multi-AZ topology across 2 Availability Zones (or add a 3rd AZ)
+availability_zones       = ["us-east-1a", "us-east-1b"]
+public_subnet_cidrs      = ["10.0.1.0/24", "10.0.2.0/24"]
+private_app_subnet_cidrs = ["10.0.10.0/24", "10.0.20.0/24"]
+isolated_db_subnet_cidrs = ["10.0.100.0/24", "10.0.200.0/24"]
+
+# Cost vs HA settings:
+# false = High Availability (1 NAT Gateway per AZ, recommended for Production)
+# true  = Single NAT Gateway across all AZs (cost savings for Dev/Staging)
+single_nat_gateway = false
+
+# Security and monitoring controls
+enable_flow_logs         = true
+enable_s3_endpoint       = true
+enable_dynamodb_endpoint = true
+enable_ssm_endpoints     = true
+
+# Target database port for DB tier security group (e.g., 5432 for Postgres, 3306 for MySQL)
+database_port = 5432

@@ -1,0 +1,64 @@
+  ### 1. Prerequisites (Install Tools)                                       
+                                                                             
+  If you haven't installed Terraform and the AWS CLI yet (Homebrew is        
+  available on your Mac):                                                    
+                                                                             
+    # Install Terraform & AWS CLI                                            
+    brew tap hashicorp/tap                                                   
+    brew install hashicorp/tap/terraform                                     
+    brew install awscli                                                      
+                                                                             
+  Configure your AWS credentials:                                            
+                                                                             
+    aws configure                                                            
+  ──────                                                                     
+  ### 2. Configure Variables                                                 
+                                                                             
+  Create your local variable configuration from the example template:        
+                                                                             
+    cp terraform.tfvars.example terraform.tfvars                             
+                                                                             
+  (Edit terraform.tfvars to set your desired region, CIDRs, database port,   
+  and whether to use single_nat_gateway = true for dev/cost-saving or false  
+  for HA production.)                                                        
+  ──────                                                                     
+  ### 3. Core Terraform Workflow                                             
+                                                                             
+  Run these commands inside /Users/hasithadhananjaya/Desktop/Secure Cloud    
+  Network:                                                                   
+                                                                             
+    # Initialize the working directory and download the AWS provider         
+    terraform init                                                           
+                                                                             
+    # Check code formatting                                                  
+    terraform fmt -check                                                     
+                                                                             
+    # Validate configuration syntax and parameters                           
+    terraform validate                                                       
+                                                                             
+    # Preview changes before provisioning                                    
+    terraform plan                                                           
+                                                                             
+    # Deploy the infrastructure to AWS                                       
+    terraform apply                                                          
+  ──────                                                                     
+  ### 4. Inspecting Outputs & State                                          
+                                                                             
+  After applying, view the provisioned resource IDs (VPC ID, subnet IDs,     
+  security groups):                                                          
+                                                                             
+    # View all output variables defined in outputs.tf                        
+    terraform output                                                         
+                                                                             
+    # View a specific output in JSON format                                  
+    terraform output -json                                                   
+                                                                             
+    # List all tracked resources in state                                    
+    terraform state list                                                     
+  ──────                                                                     
+  ### 5. Cleanup & Teardown                                                  
+                                                                             
+  To delete all provisioned AWS resources and avoid ongoing AWS charges:     
+                                                                             
+    terraform destroy                                                        
+
